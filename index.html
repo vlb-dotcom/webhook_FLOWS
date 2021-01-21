@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Form</title>
+	<!-- <meta name="bs:input:inputFName" content="type=string,description=The first name of the user" />
+	<meta name="bs:input:inputLName" content="type=string,description=The last name of the user" />
+	<meta name="bs:input:inputAddress" content="type=string,description=The address of the user" />
+ -->
+    <meta name="bs:input:buttonName" content="type=string,description=Display name for the button" />
+	 
+	<meta name="bs:output:userName" content="type=string,description=The first name of the user" />
+	<meta name="bs:output:userAddress" content="type=string,description=The first name of the user" />
+	<meta name="bs:output:userMobile" content="type=string,description=The first name of the user" />
+	<meta name="bs:output:userEmail" content="type=string,description=The first name of the user" />
+	<meta name="bs:output:userInstruction" content="type=string,description=The first name of the user" />
+
+
+	<meta name="bs:output:firstName" content="type=string,description=The first name of the user" />
+	<meta name="bs:output:lastName" content="type=string,description=The last name of the user" />
+	<meta name="bs:output:address" content="type=string,description=The address of the user" />
+	<meta name="bs:outlet:Button Clicked" />
+
+	<!-- <meta name="bs:input:buttonName" content="type=string,description=Custom name of submit button" /> -->
+	<!-- <meta name="bs:output:buttonName" content="type=string,description=Selected Address" /> -->
+	<!-- <link rel="stylesheet" href="style.css" /> -->
+	<link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+	<div class="iframe-form">
+		<iframe frameborder="0" style="height:500px;width:99%;border:none;" src='https://forms.zohopublic.com/dcsanjuan/form/WebviewBillerTest/formperma/rrav_PiMo6yUXgEgbhF5rMEYulaxH0j6ykUW4_SkO8w'></iframe>
+	</div>
+  <div class="container">
+      <form class="form" id="myForm">
+		<!-- <form class="form" name="submit-to-google-sheet" id="myForm"> -->
+        <h2 class="form">Test Form</h2>
+        <!-- <div class="form-group">
+  		  <label for="inputFName">First Name</label>
+  		  <input type="text" id="inputFName" name="FirstName" class="form-control" placeholder="First Name" required autofocus>
+ 	    </div>
+  		<div class="form-group">
+  		  <label for="inputLName">Last Name</label>
+          <input type="text" id="inputLName" name="LastName" class="form-control" placeholder="Last Name" required>
+ 	    </div>
+ 	    <div class="form-group">
+  		  <label for="inputAddress">Address</label>
+          <input type="text" id="inputAddress" name="Address" class="form-control" placeholder="Address" required>
+		 </div> -->
+
+		 <h3 id="inFname"><span id="io-Fname">Name</span> </h3>
+		 <h3 id="inADRSname"><span id="io-Address">Address</span></h3>
+		 <h3 id="inMobile"><span id="io-Mobile">Mobile</span></h3>
+		 <h3 id="inEmail"><span id="io-Email">Email</span></h3>
+		 <h3 id="inInstructions"><span id="io-Instructions">SpecialInstructions</span></h3>
+
+		<!-- <div id="done-btn" onclick="sendResponse()" type="button">SUBMIT</div> -->
+		 <!-- <button id="done-btn" onclick="sendResponse()">Done</button> -->
+		 <button id="done-btn" onclick="sendResponse()" action="/#">Done</button>
+      </form>
+
+    </div> <!-- /container -->
+
+	
+	<!-- <script src="app.js"></script> -->
+	<script src="script.js"></script>
+
+
+	 <!--
+      BotStar Webview SDK is required if you want to use BotStarWebview's functions.
+      Function onChatBotReady will be called when BotStarWebview is ready to use.
+    -->
+    <script src="https://static.botstar.com/webview/sdk/webview-sdk-1.0.0.js"></script> 
+
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('/');
+		// myFunction()
+		// function myFunction() {
+		// 	var myVar = setInterval(myTimer, 1000);
+		// }
+
+		// function myTimer() {
+		// 	socket.on('announcements', function(data) {
+		// 	console.log('Got announcement:', data.messageA);
+		// 	});
+		// }
+
+		// var socket = io.connect('http://localhost:3000/?token=testToken');
+		socket.on('message', function (message) {
+			// console.log(message);
+
+			// document.getElementById("io-Fname").innerHTML = JSON.stringify(message.messageA);
+			//document.getElementById("io-Fname").innerHTML = JSON.stringify(message)
+
+			document.getElementById("io-Fname").innerHTML = JSON.stringify(message.messageName)
+			document.getElementById("io-Address").innerHTML = JSON.stringify(message.messageAddress)
+			document.getElementById("io-Mobile").innerHTML = JSON.stringify(message.messageMobile)
+			document.getElementById("io-Email").innerHTML = JSON.stringify(message.messageEmail)
+			document.getElementById("io-Instructions").innerHTML = JSON.stringify(message.messageInstruction)
+			// document.getElementById("io-Lname").innerHTML = message.messageB
+			// document.getElementById("io-Address").innerHTML = message.messageC
+		});
+
+		// socket.on('messageB', function (messageB) {
+		// 	console.log(messageB);
+
+		// 	// document.getElementById("io-Fname").innerHTML = JSON.stringify(message.messageA);
+		// 	document.getElementById("io-Lname").innerHTML = messageB.messageB
+		// });
+
+		// socket.on('messageC', function (messageC) {
+		// 	console.log(messageC);
+
+		// 	// document.getElementById("io-Fname").innerHTML = JSON.stringify(message.messageA);
+		// 	document.getElementById("io-Address").innerHTML = messageC.messageC
+		// });
+	</script>
+
+</body>
+</html>
